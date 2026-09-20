@@ -66,6 +66,9 @@ serena = "serena.cli:top_level"
 serena-agent = "serena.cli:top_level"
 serena-hooks = "serena.hooks:hook_commands"
 
+[project.entry-points."solidlsp.language_server_registration"]
+protobuf = "solidlsp.language_servers.protobuf_language_server:register_protobuf"
+
 [project.optional-dependencies]
 dev = [
   "jinja2==3.1.6",
