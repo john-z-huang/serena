@@ -53,3 +53,47 @@ like any other language server:
 language_servers:
   - myls
 ```
+
+### Protobuf language-server adapter
+
+This fork includes a generic adapter for Protobuf language servers implementing LSP over stdio. After installing
+Serena from this source tree, add `protobuf` to a project's `language_servers` list and configure the complete
+language-server command:
+
+```yaml
+language_servers:
+  - protobuf
+ls_specific_settings:
+  protobuf:
+    ls_base_cmd: [protobuf-language-server, --stdio]
+```
+
+The adapter does not assume a particular Protobuf LSP product. The following optional settings cover common
+differences between implementations:
+
+```yaml
+ls_specific_settings:
+  protobuf:
+    language_id: proto
+    textproto_language_id: textproto
+    initialization_options: {}
+    workspace_configuration: {}
+    # Optional, product-specific LSP requests sent after initialized.
+    initialization_requests: []
+```
+
+For example, the DrBlury Protobuf VSC extension can be used without any Python-side special case by putting its
+Node.js command and custom Tree-sitter request in `project.yml`:
+
+```yaml
+ls_specific_settings:
+  protobuf:
+    ls_base_cmd:
+      - /path/to/node
+      - /path/to/drblury.protobuf-vsc/dist/server/server.js
+      - --stdio
+    initialization_requests:
+      - method: protobuf/initTreeSitter
+        params:
+          wasmPath: /path/to/drblury.protobuf-vsc/dist/tree-sitter/tree-sitter-proto.wasm
+```

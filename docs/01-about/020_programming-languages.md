@@ -187,6 +187,9 @@ Some languages require additional installations or setup steps, as noted.
 * **YAML**
 * **JSON**  
   (experimental; must be explicitly added to the languages list; requires Node.js and npm)
+* **Protobuf**
+  (uses any stdio-based Protobuf language server implementing LSP; configure its launch command under
+  `ls_specific_settings.protobuf.ls_base_cmd`, and set `textproto_language_id` when the server uses a custom ID)
 * **Zig**  
   (requires installation of ZLS - Zig Language Server)
 
